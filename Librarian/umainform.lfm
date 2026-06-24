@@ -3396,45 +3396,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
     MouseLinkColor.Foreground = clBlue
     LineHighlightColor.Background = 16444903
     LineHighlightColor.Foreground = clNone
-    inline SynLeftGutterPartList1: TSynGutterPartList
-      object SynGutterMarks1: TSynGutterMarks
-        Width = 24
-        Visible = False
-        MouseActions = <>
-      end
-      object SynGutterLineNumber1: TSynGutterLineNumber
-        Width = 33
-        MouseActions = <>
-        MarkupInfo.Background = 12058620
-        MarkupInfo.Foreground = clNone
-        DigitCount = 3
-        ShowOnlyLineNumbersMultiplesOf = 10
-        ZeroStart = False
-        LeadingZeros = False
-      end
-      object SynGutterChanges1: TSynGutterChanges
-        Width = 4
-        Visible = False
-        MouseActions = <>
-        ModifiedColor = 59900
-        SavedColor = clGreen
-      end
-      object SynGutterSeparator1: TSynGutterSeparator
-        Width = 2
-        Visible = False
-        MouseActions = <>
-        MarkupInfo.Background = clWhite
-        MarkupInfo.Foreground = clGray
-      end
-      object SynGutterCodeFolding1: TSynGutterCodeFolding
-        Visible = False
-        MouseActions = <>
-        MarkupInfo.Background = clNone
-        MarkupInfo.Foreground = clGray
-        MouseActionsExpanded = <>
-        MouseActionsCollapsed = <>
-      end
-    end
   end
   object tvData: TTreeView
     Left = 0
@@ -5914,7 +5875,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   end
   object shlPascal: TSynFreePascalSyn
     Tag = 1
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = clBlue
@@ -5928,7 +5888,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   end
   object shlVB: TSynVBSyn
     Tag = 2
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -5940,7 +5899,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlSQL: TSynSQLSyn
     Tag = 3
     DefaultFilter = 'SQL Files (*.sql)|*.sql'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -5953,7 +5911,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlPython: TSynPythonSyn
     Tag = 4
     DefaultFilter = 'Python Files (*.py)|*.py'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -5965,7 +5922,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlPHP: TSynPHPSyn
     Tag = 5
     DefaultFilter = 'PHP Files (*.php,*.php3,*.phtml,*.inc)|*.php;*.php3;*.phtml;*.inc'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -5978,7 +5934,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlPerl: TSynPerlSyn
     Tag = 6
     DefaultFilter = 'Perl Files (*.pl,*.pm,*.cgi)|*.pl;*.pm;*.cgi'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -5990,7 +5945,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlJava: TSynJavaSyn
     Tag = 7
     DefaultFilter = 'Java Files (*.java)|*.java'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -6002,7 +5956,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlBAT: TSynBatSyn
     Tag = 8
     DefaultFilter = 'MS-DOS Batch Files (*.bat;*.cmd)|*.bat;*.cmd'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -6012,7 +5965,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlCPP: TSynCppSyn
     Tag = 9
     DefaultFilter = 'C++ Files (*.c,*.cpp,*.h,*.hpp,*.hh)|*.c;*.cpp;*.h;*.hpp;*.hh'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -6030,7 +5982,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
     end
   end
   object shlMultiHl: TSynMultiSyn
-    Enabled = False
     Schemes = <    
       item
         StartExpr = '<Bat>;<Bat'
@@ -6118,7 +6069,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlSqlInterbase: TSynSQLSyn
     Tag = 10
     DefaultFilter = 'SQL Files (*.sql)|*.sql'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -6131,7 +6081,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlSqlMsSql2000: TSynSQLSyn
     Tag = 12
     DefaultFilter = 'SQL Files (*.sql)|*.sql'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -6144,7 +6093,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlSqlMySQL: TSynSQLSyn
     Tag = 13
     DefaultFilter = 'SQL Files (*.sql)|*.sql'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -6157,7 +6105,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlSqlOracle: TSynSQLSyn
     Tag = 14
     DefaultFilter = 'SQL Files (*.sql)|*.sql'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     KeyAttri.Foreground = clNavy
     NumberAttri.Foreground = 4227327
@@ -6170,7 +6117,6 @@ object SnippetsMainFrm: TSnippetsMainFrm
   object shlShellScript: TSynUNIXShellScriptSyn
     Tag = 16
     DefaultFilter = 'UNIX Shell Scripts (*.sh)|*.sh'
-    Enabled = False
     CommentAttri.Foreground = 10658466
     NumberAttri.Foreground = 4227327
     StringAttri.Foreground = 4174598
@@ -6179,14 +6125,12 @@ object SnippetsMainFrm: TSnippetsMainFrm
     top = 159
   end
   object SynAnySyn1: TSynAnySyn
-    Enabled = False
     CommentAttri.Foreground = 12697535
     CommentAttri.Style = []
     Comments = []
     DetectPreprocessor = False
     IdentifierChars = '!"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
     KeyAttri.Foreground = clNavy
-    KeyAttri.StyleMask = [fsBold]
     ConstantAttri.Style = []
     ObjectAttri.Foreground = clBlue
     ObjectAttri.Style = []

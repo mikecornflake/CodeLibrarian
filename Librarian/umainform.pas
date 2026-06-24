@@ -51,11 +51,13 @@ interface
 uses
   Classes,   SysUtils, FileUtil, Forms,    Controls, Graphics, Dialogs, ComCtrls,
   ExtCtrls,  SynEdit,  ActnList, StdActns, Menus,    Buttons,  //Grids,   StdCtrls, FileCtrl,
-  uVar, GpStructuredStorage,
-  SynEditHighlighter,  SynHighlighterPas,     SynHighlighterVB,   SynHighlighterSQL, SynHighlighterPython,
-  SynHighlighterPHP,   SynHighlighterPerl,    SynHighlighterJava, SynHighlighterBat, SynHighlighterCpp,
-  SynHighlighterMulti, SynHighlighterJScript, SynHighlighterAny,  SynHighlighterAsm, SynHighlighterCS,
-  synhighlighterunixshellscript, TreeFilterEdit;
+  uVar, GpStructuredStorage, SynEditHighlighter, SynHighlighterPas,
+  SynHighlighterVB, SynHighlighterSQL, SynHighlighterPython, SynHighlighterPHP,
+  SynHighlighterPerl, SynHighlighterJava, SynHighlighterBat, SynHighlighterCpp,
+  SynHighlighterMulti, SynHighlighterJScript, SynHighlighterAny,
+  SynHighlighterAsm, SynHighlighterCS, synhighlighterunixshellscript, SynGutter,
+  SynGutterBase, SynGutterChanges, SynGutterCodeFolding, SynGutterLineNumber,
+  SynGutterMarks, TreeFilterEdit;
 
 type
   { TSnippetsMainFrm }

@@ -527,7 +527,8 @@ end;
 
 class function TSynAsmSyn.GetLanguageName: string;
 begin
-  Result := SYNS_LangX86Asm;
+  //Result := SYNS_LangX86Asm;
+  Result := 'x86Assembly';
 end;
 
 function TSynAsmSyn.IsFilterStored: Boolean;
