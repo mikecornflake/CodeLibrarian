@@ -8,8 +8,8 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   sysutils,
-  Forms, lazcontrols, uMainForm, GpLists, GpStructuredStorage, uOptions,
-  uVar, uEvsSynhighlightersql, StrConst;
+  Forms, lazcontrols, uMainForm, GpStructuredStorage, uOptions,
+  uVar, uEvsSynhighlightersql;
 
 {$R *.res}
 

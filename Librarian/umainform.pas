@@ -232,7 +232,7 @@ var
 
 implementation
 uses
-  strutils, variants, uOptions, IniFiles, uEvsSynhighlightersql, StrConst
+  strutils, variants, uOptions, IniFiles, uEvsSynhighlightersql
   , SynHighlighterDOT, SynHighlighterInno, SynHighlighterCobol, SynHighlighterEiffel
   , SynHighlighterFortran, SynHighlighterRuby, SynHighlighterIDL, SynHighlighterHaskell
   , SynHighlighterFoxpro, SynHighlighterProlog, SynHighlighterLua
