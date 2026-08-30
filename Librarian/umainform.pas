@@ -237,7 +237,7 @@ uses
   , SynHighlighterFortran, SynHighlighterRuby, SynHighlighterIDL, SynHighlighterHaskell
   , SynHighlighterFoxpro, SynHighlighterProlog, SynHighlighterLua
   //, SynHighlighterM3
-  , SynHighlighterTclTk
+  , SynHighlighterTclTk, LazFileUtils
   ;
 {$R *.lfm}
 
@@ -727,8 +727,8 @@ begin
     snEditor.Enabled := False;
   end;
   snEditor.Highlighter := GetHighLighter(vFile);
-  CheckMenu(snEditor.Highlighter);
-  StatusBar1.Panels[0].Text := HighLighterTitle(snEditor.Highlighter);
+  CheckMenu(TSynCustomHighlighter(snEditor.Highlighter));
+  StatusBar1.Panels[0].Text := HighLighterTitle(TSynCustomHighlighter(snEditor.Highlighter));
 end;
 
 procedure TSnippetsMainFrm.tvDataChanging(Sender : TObject; Node : TTreeNode; var AllowChange : Boolean);
@@ -933,7 +933,7 @@ begin
   FCodeLib := CreateStorage;
   FCodeLib.Initialize(aName, fmOpenReadWrite or fmShareExclusive);
   LoadCodeLib;
-  if not FCodeLib.FileExists('/.Settings') then FCodeLib.CreateFolder('/.Settings');
+  if not FCodeLib.FolderExists('/.Settings') then FCodeLib.CreateFolder('/.Settings');
   FLastLibrary := aName;
   if FAutoExpandNodes then ExpandTreeNodes(FAutoExpandAll);
   StatusBar1.Panels[1].Text := aName;
@@ -1617,16 +1617,16 @@ var
     end;
   end;
 
-  procedure CopyAttributes(aFrom, aTo:String); //attributes are used to keep info like language and in the future, Supported OS, Required Library, etc.
-  var
-    vAttrCntr:Integer;
-    vAttrNames:TStringList;
-  begin
-    vFromLib.GetFileInfo(aFrom).AttributeNames(vAttrNames);
-    for vAttrCntr := 0 to vAttrNames.Count -1 do begin
-      vToLib.GetFileInfo(aTo).SetAttribute(vAttrNames.Strings[vAttrCntr],vFromLib.GetFileInfo(aFrom).GetAttribute(vAttrNames.Strings[vAttrCntr]));
-    end;
-  end;
+  //procedure CopyAttributes(aFrom, aTo:String); //attributes are used to keep info like language and in the future, Supported OS, Required Library, etc.
+  //var
+  //  vAttrCntr:Integer;
+  //  vAttrNames:TStringList;
+  //begin
+  //  vFromLib.GetFileInfo(aFrom).AttributeNames(vAttrNames);
+  //  for vAttrCntr := 0 to vAttrNames.Count -1 do begin
+  //    vToLib.GetFileInfo(aTo).SetAttribute(vAttrNames.Strings[vAttrCntr],vFromLib.GetFileInfo(aFrom).GetAttribute(vAttrNames.Strings[vAttrCntr]));
+  //  end;
+  //end;
 
   procedure ImportFolder(aSourceFolder, aDestFolder:string);
   var
@@ -1640,15 +1640,12 @@ var
     try
       aSourceFolder := InclPathDel(aSourceFolder);
       vFromLib.FolderNames(aSourceFolder, vFolders);
-      for vCnt := 0 to vFolders.Count -1 do begin
+      for vCnt := 0 to vFolders.Count - 1 do
+      begin
         vNewFolder := InclPathDel(aDestFolder) + vFolders[vCnt];
         vToLib.CreateFolder(vNewFolder);
-<<<<<<< HEAD
-        CopyAttributes(vNewFolder, InclPathDel(aSourceFolder) + vFolders[vCnt]);
-=======
-        CopyAttributes(vNewFolder, vNewFolder);
->>>>>>> 747aae165a283c89228d908bb5cbe9c7cd942bda
-        ImportFolder(aSourceFolder + vFolders[vCnt] +cDelim, vNewFolder);
+        CopyAttributes(InclPathDel(aSourceFolder) + vFolders[vCnt],vNewFolder);
+        ImportFolder(InclPathDel(aSourceFolder) + vFolders[vCnt],vNewFolder);
       end;
       vFromLib.FileNames(aSourceFolder, vFiles);
       aDestFolder := InclPathDel(aDestFolder);
@@ -1676,11 +1673,7 @@ begin
     vFromLib := CreateStorage;
     vFromLib.Initialize(aFileName, fmOpenReadWrite or fmShareExclusive);
     vToLib := FCodeLib;
-<<<<<<< HEAD
     if vToLib.FolderExists(aRootFolder) then //need to change this bhavior the root folder will act only as a host it makes no sense to have a non existing host.
-=======
-    if vToLib.FolderExists(aRootFolder) then
->>>>>>> 747aae165a283c89228d908bb5cbe9c7cd942bda
       raise Exception.CreateFmt('Folder %S already exists in the library',[aRootFolder]);
     ImportFolder('/', aRootFolder);
     LoadCodeLib;

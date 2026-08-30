@@ -136,6 +136,9 @@ type
       write fSymbolAttri;
   end;
 
+const
+  SYNS_LangX86Asm = 'x86 assembly language';
+
 implementation
 
 uses

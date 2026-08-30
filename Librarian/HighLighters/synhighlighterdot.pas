@@ -1359,12 +1359,12 @@ end;
 
 procedure TSynDOTSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := TRangeState(PtrUInt(Value));
 end;
 
 function TSynDOTSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PtrUInt(fRange));
 end;
 
 initialization

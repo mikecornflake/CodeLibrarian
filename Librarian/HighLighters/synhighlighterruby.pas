@@ -658,21 +658,25 @@ end;
 function TSynRubySyn.GetRange: Pointer;
 {$IFDEF SYN_HEREDOC}
 var
-  RangePointer : TRangePointer;
+  RangePointer: TRangePointer;
 {$ENDIF}
 begin
 {$IFDEF SYN_HEREDOC}
+  RangePointer.Ptr := nil;  // Important on 64-bit
+
   RangePointer.Range := Ord(fRange);
   RangePointer.Length := 0;
   RangePointer.Checksum := 0;
+
   if fRange in [rsHeredoc, rsIndentedHeredoc] then
   begin
     RangePointer.Length := fHeredocLength;
     RangePointer.Checksum := fHeredocChecksum;
   end;
+
   Result := RangePointer.Ptr;
 {$ELSE}
-  Result := Pointer(fRange);
+  Result := Pointer(PtrUInt(fRange));
 {$ENDIF}
 end;
 
@@ -742,7 +746,7 @@ begin
     fHeredocChecksum := RangePointer.Checksum;
   end;
 {$ELSE}
-  fRange := TRangeState(Value);
+  fRange := TRangeState(PtrUInt(Value));
 {$ENDIF}
 end;
 

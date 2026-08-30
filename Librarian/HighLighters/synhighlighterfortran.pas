@@ -187,6 +187,10 @@ type
       write fSymbolAttri;
   end;
 
+const
+  SYNS_FilterFortran = 'Fortran Files (*.for;*.fort;*.f;*.f77;*.f90)|*.for;*.fort;*.f;*.f77;*.f90';
+  SYNS_LangFortran   = 'Fortran';
+
 implementation
 
 uses

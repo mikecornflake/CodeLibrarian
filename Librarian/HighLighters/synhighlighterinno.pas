@@ -145,6 +145,10 @@ type
       write fSymbolAttri;
   end;
 
+const
+  SYNS_FilterInno = 'Inno Setup Script Files (*.iss)|*.iss';
+  SYNS_LangInno   = 'Inno Setup script';
+
 implementation
 
 uses

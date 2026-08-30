@@ -153,6 +153,10 @@ type
       write fSymbolAttri;
   end;
 
+const
+   SYNS_FilterTclTk = 'Tcl/Tk Files (*.tcl)|*.tcl';
+   SYNS_LangTclTk   = 'Tcl/Tk';
+
 implementation
 
 uses
@@ -617,7 +621,7 @@ end;
 
 function TSynTclTkSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PtrUInt(fRange));
 end;
 
 function TSynTclTkSyn.GetToken: string;
@@ -667,7 +671,7 @@ end;
 
 procedure TSynTclTkSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := TRangeState(PtrUInt(Value));
 end;
 
 procedure TSynTclTkSyn.SetKeyWords(const Value: TStrings);

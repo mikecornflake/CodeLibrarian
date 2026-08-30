@@ -185,6 +185,10 @@ type
     property SymbolAttri: TSynHighlighterAttributes read fSymbolAttri write fSymbolAttri;
   end;
 
+const
+  SYNS_FilterCORBAIDL = 'CORBA IDL Files (*.idl)|*.idl';
+  SYNS_LangCORBAIDL   = 'CORBA IDL';
+
 implementation
 
 uses
@@ -905,12 +909,12 @@ end;
 
 procedure TSynIdlSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := TRangeState(PtrUInt(Value));
 end;
 
 function TSynIdlSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PtrUInt(fRange));
 end;
 
 initialization

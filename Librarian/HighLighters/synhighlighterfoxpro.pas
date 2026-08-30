@@ -250,6 +250,10 @@ type
       write fSymbolAttri;
   end;
 
+const
+  SYNS_FilterFoxpro = 'Foxpro Files (*.prg)|*.prg';
+  SYNS_LangFoxpro   = 'Foxpro';
+
 implementation
 
 uses

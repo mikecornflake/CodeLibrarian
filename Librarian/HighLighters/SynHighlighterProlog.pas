@@ -1830,7 +1830,7 @@ end;
 
 function TSynPrologSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PtrUInt(fRange));
 end;
 
 procedure TSynPrologSyn.ReSetRange;
@@ -1840,7 +1840,7 @@ end;
 
 procedure TSynPrologSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := TRangeState(PtrUInt(Value));
 end;
 
 procedure TSynPrologSyn.AndSymbolProc;
