@@ -63,7 +63,7 @@ end;
 
 function ApplicationFolder : string; inline;
 begin
-  Result := ExtractFilePath(Application.ExeName);
+  Result := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName));
 end;
 
 initialization

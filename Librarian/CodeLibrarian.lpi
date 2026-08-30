@@ -127,7 +127,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="bin\CodeLibrarian"/>
+      <Filename Value="bin\$(TargetCPU)-$(TargetOS)\CodeLibrarian"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

@@ -702,14 +702,14 @@ begin
 
   FActivated := True;
 
-  Application.QueueAsyncCall(@DoStartupLoad, 0);
+  if FAutoLoadLast and (FLastLibrary <> '') then
+    OpenLibrary(FLastLibrary);
 end;
 
 procedure TSnippetsMainFrm.DoStartupLoad(Data: PtrInt);
 begin
   try
-    if FAutoLoadLast and (FLastLibrary <> '') then
-      OpenLibrary(FLastLibrary);
+
   except
     on E: Exception do
     begin
@@ -964,7 +964,7 @@ begin
   FCodeLib := CreateStorage;
   FCodeLib.Initialize(aName, fmOpenReadWrite or fmShareExclusive);
   LoadCodeLib;
-  if not FCodeLib.FolderExists('/.Settings') then FCodeLib.CreateFolder('/.Settings');
+  //if not FCodeLib.FileExists('/.Settings') then FCodeLib.CreateFolder('/.Settings');
   FLastLibrary := aName;
   if FAutoExpandNodes then ExpandTreeNodes(FAutoExpandAll);
   StatusBar1.Panels[1].Text := aName;
