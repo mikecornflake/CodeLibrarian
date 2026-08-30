@@ -726,6 +726,7 @@ begin
     snEditor.Lines.Clear;
     snEditor.Enabled := False;
   end;
+  snEditor.Modified:=False;
   snEditor.Highlighter := GetHighLighter(vFile);
   CheckMenu(TSynCustomHighlighter(snEditor.Highlighter));
   StatusBar1.Panels[0].Text := HighLighterTitle(TSynCustomHighlighter(snEditor.Highlighter));
@@ -733,9 +734,8 @@ end;
 
 procedure TSnippetsMainFrm.tvDataChanging(Sender : TObject; Node : TTreeNode; var AllowChange : Boolean);
 begin
-  if snEditor.Modified then begin
-    SaveData(Node);
-  end;
+  if snEditor.Modified and Assigned(tvData.Selected) then
+    SaveData(tvData.Selected);
 end;
 
 procedure TSnippetsMainFrm.tvDataCompare(Sender : TObject; Node1, Node2 : TTreeNode; var Compare : Integer);
