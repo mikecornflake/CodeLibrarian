@@ -11,6 +11,7 @@ object SnippetsMainFrm: TSnippetsMainFrm
   ClientWidth = 987
   Menu = mnuMain
   OnClose = FormClose
+  OnShow = FormShow
   LCLVersion = '2.0.0.4'
   object ToolBar1: TToolBar
     Left = 0

@@ -165,6 +165,7 @@ type
     procedure actSnippetSaveExecute   (Sender :TObject);
     procedure actSnippetSaveUpdate    (Sender :TObject);
     procedure FormClose               (Sender :TObject; var CloseAction : TCloseAction);
+    procedure FormShow                (Sender: TObject);
     procedure pmnuTreePopup           (Sender :TObject);
     procedure snEditorExit            (Sender :TObject);
     procedure Splitter1Moved          (Sender :TObject);
@@ -186,7 +187,9 @@ type
     FDefaultHighlighter :TSynCustomHighlighter;// always set to shlPascal user selectable in the future.
     FAutoExpandNodes    :Boolean;
     FAutoExpandAll      :Boolean;
+    FActivated          :Boolean;
 
+    procedure DoStartupLoad    (Data: PtrInt);
     function GetHighLighter    (aFileName          :string)               :TSynCustomHighlighter;overload;
     function GetHighLighter    (aNode              :TTreeNode)            :TSynCustomHighlighter;overload;
     function HighLighterTitle  (const aHighLighter :TSynCustomHighlighter):string;
@@ -690,6 +693,34 @@ end;
 procedure TSnippetsMainFrm.FormClose(Sender : TObject; var CloseAction : TCloseAction);
 begin
   if snEditor.Modified then SaveData(tvData.Selected);
+end;
+
+procedure TSnippetsMainFrm.FormShow(Sender: TObject);
+begin
+  if FActivated then
+    Exit;
+
+  FActivated := True;
+
+  Application.QueueAsyncCall(@DoStartupLoad, 0);
+end;
+
+procedure TSnippetsMainFrm.DoStartupLoad(Data: PtrInt);
+begin
+  try
+    if FAutoLoadLast and (FLastLibrary <> '') then
+      OpenLibrary(FLastLibrary);
+  except
+    on E: Exception do
+    begin
+      // log/show warning, but keep application alive
+      MessageDlg(
+        'Unable to automatically open the last library.' + LineEnding +
+        'You can open it manually from File > Open.' + LineEnding + LineEnding +
+        E.Message,
+        mtWarning, [mbOK], 0);
+    end;
+  end;
 end;
 
 procedure TSnippetsMainFrm.pmnuTreePopup(Sender : TObject);
@@ -1256,7 +1287,7 @@ begin
   tvData.PopupMenu    := pmnuTree;
   FDefaultHighlighter := shlPascal;
   LoadSettings;
-  if FAutoLoadLast and (FLastLibrary <> '') then OpenLibrary(FLastLibrary);
+  FActivated := False;
   snEditor.Lines.Clear;
 end;
 
