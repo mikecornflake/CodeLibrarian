@@ -1111,6 +1111,9 @@ end; { TGpStructuredHeader.LoadHeader }
 procedure TGpStructuredHeader.SetCardinal(index: integer;
   const value: cardinal);
 begin
+  if shPointers[index] = value then
+    Exit;
+
   shStorage.Position := 0;
   shStorage.Offset := CBlockSize - 4 + (index * 4);
   shStorage.WriteBuffer(value, 4);
