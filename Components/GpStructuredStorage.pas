@@ -528,6 +528,10 @@ type
   TGpStructuredFolder = class(TGpStructuredFile)
   private
     sfAccessCount    : integer;
+    sfDeleted        : boolean; // set when the storage entry is gone but sfAccessCount > 0
+                                 // still kept this object alive; see
+                                 // TGpStructuredFolderCache.InternalRemove and
+                                 // TGpStructuredStorage.ReleaseFolder
     sfEntries        : TObjectList {of TGpStructuredFolderEntry};
     sfFolderCache_ref: TGpStructuredFolderCache;
     sfNumOpenFiles   : integer;
@@ -2498,11 +2502,26 @@ begin
     end;
   end
   else begin
+    {:Bug fixed: destroyFolder used to be accepted but never actually checked, so this
+      branch freed fldSubFolder unconditionally - including when another live holder
+      (e.g. an outstanding IGpStructuredFileInfo, which can legitimately still be alive
+      here even for a "one-liner" call like storage.FileInfo[x].Attribute[y] := z - Delphi
+      does not release such an anonymous interface temporary until the enclosing procedure
+      exits, not at the end of the statement) still referenced it - a use-after-free.
+      Detach the folder from the cache below so it can never be looked up again, but only
+      actually free it now if nothing still references it (sfAccessCount = 0) or the
+      caller is TrimMRUList evicting an already-confirmed-inactive folder
+      (destroyFolder = True). Otherwise defer the free to ReleaseFolder, once the last
+      outstanding reference is actually released.}
     fldSubFolder.Proxy.Free;
-    fldSubFolder.Free;
+    fldSubFolder.Proxy := nil;
     parentList.Delete(idxSubFolder);
     if parentList.Count = 0 then
       sfcParentFolders[parentFolder] := nil;
+    if destroyFolder or (fldSubFolder.sfAccessCount = 0) then
+      fldSubFolder.Free
+    else
+      fldSubFolder.sfDeleted := true;
   end;
   Result := true;
 end; { TGpStructuredFolderCache.InternalRemove }
@@ -3257,8 +3276,17 @@ begin
     Exit;
   if assigned(folder.Folder) and // Root folder is always cached and is not reference-counted
      folder.Release
-  then
-    gssFolderCache.MarkInactive(folder.Folder, folder.FileName);
+  then begin
+    {:Bug fixed: see TGpStructuredFolderCache.InternalRemove - a folder whose storage
+      entry was deleted while still referenced (sfDeleted) is detached from the cache at
+      delete time rather than freed there. Now that the last outstanding reference to it
+      is being released, actually free it, instead of trying to mark it inactive in a
+      cache it is no longer part of (which would silently no-op and leak the object).}
+    if folder.sfDeleted then
+      FreeAndNil(folder)
+    else
+      gssFolderCache.MarkInactive(folder.Folder, folder.FileName);
+  end; 
 end; { TGpStructuredStorage.ReleaseFolder }
 
 {:Renames folder in the folder cache.
